@@ -66,7 +66,7 @@ def send_email_with_attachment(recipient_email: str, excel_bytes: bytes, invoice
     )
 
     # Ajout du corps au message
-    msg.attach(MIMEText(body, 'plain'))
+    msg.attach(MIMEText(body, _subtype='plain'))
 
     # Crée la pièce jointe Excel
     part = MIMEBase(_maintype='application', _subtype='octet-stream')
@@ -181,10 +181,8 @@ async def webhook_tally(submission: TallySubmission):
     for url in file_urls:
         print(f"Analyse de l'URL: {url}")
 
-        # Correction L. 167 (type: ignore)
         data = analyze_invoice_with_gemini(url)  # type: ignore
 
-        # Correction L. 168 (type: ignore)
         data['url_facture'] = url  # type: ignore
 
         extracted_data.append(data)
