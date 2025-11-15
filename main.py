@@ -128,7 +128,7 @@ def send_email_with_attachment(recipient_email: str, excel_bytes: bytes, invoice
     part.set_payload(excel_bytes)
     encoders.encode_base64(part)
     part.add_header('Content-Disposition', 'attachment; filename="Factures_Analysees.xlsx"')
-    msg.attach(part)
+    msg.attach(text.MIMEText(body,'plain'))
 
     try:
         # Connexion au serveur SMTP
